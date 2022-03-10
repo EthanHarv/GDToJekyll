@@ -173,7 +173,7 @@ var processFile = function(file, imgs = null) {
         for (let j = 1 /* Skip list head */; j < list.length; j++) {
             const ul = list[j];
             if (ul.level == 0) { 
-                appendAllChildren(listHead.element, ul.element.children); // not a fan of side-effect functions but i'm gonna have to make do and die mad, im too deep. we love the sunk cost fallacy :D
+                appendAllChildren(listHead.element, [...ul.element.children]); // not a fan of side-effect functions but i'm gonna have to make do and die mad, im too deep. we love the sunk cost fallacy :D
                 ul.element.remove();
             } else {
                 appendToLevel(listHead.element, ul.element, ul.level)
