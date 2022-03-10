@@ -337,7 +337,7 @@ var buildIndexPage = function (doc, index, linkLUT, exclude) {
 
     // Make and append TOC
     const TOCTitle = document.createElement("h2");
-    TOCTitle.innerText = "Table of Contents (Headers)";
+    TOCTitle.innerText = "Table of Contents";
     indexDocument.body.append(TOCTitle);
 
     const tocList = document.createElement("ul");
