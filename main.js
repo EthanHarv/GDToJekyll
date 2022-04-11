@@ -1,5 +1,7 @@
 console.log("Loading Main")
 
+var finalBlob = null;
+
 // Startup
 $(function() {
     // Handle "Process"
@@ -447,8 +449,7 @@ var getSettings = function(doc) {
 }
 
 var writeOutToZip = async function(markdown, imgs = null){
-    // TODO: More Processing
-    
+    updateMessage("Finished building document, writing out to zip...");
     const blobWriter = new zip.BlobWriter("application/zip");
     const writer = new zip.ZipWriter(blobWriter);
     
@@ -459,6 +460,10 @@ var writeOutToZip = async function(markdown, imgs = null){
         // use a TextReader to read the String to add
         await writer.add(e.section + ".md", new zip.TextReader(e.content));
     }
+
+    // Add CNAME and _config.yml
+    await writer.add("CNAME", new zip.TextReader("guide.plv.media"));
+    await writer.add("_config.yml", new zip.TextReader('theme: jekyll-theme-tactile\ntitle: The PLV Media Manual\ndescription: <a href="https://plvmedia.github.io/guide/">Table Of Contents</a>'));
 
     // Add images
     // Probably a TERRIBLY inefficent way of doing this... oh well, it's good enough for government work.
@@ -474,9 +479,22 @@ var writeOutToZip = async function(markdown, imgs = null){
 
     // get the zip file as a Blob
     const blob = blobWriter.getData();
+
+    finalBlob = blobWriter.getData();
     
-    saveAs(blob, "markdown-out.zip");
+    saveAs(blob, "PLVMedia-Manual-markdown-out.zip");
+
     updateMessage('Finished! Downloading zip file...');
+    const div = document.querySelector("#layout > div.content.pure-u-1.pure-u-md-3-4.bg-primary > div");
+    const button = document.createElement("a");
+    button.classList.add('pure-button');
+    button.classList.add('bg-blue');
+    button.id = 'blobDownloader';
+    button.innerText = 'Download Zip Again (if you cancelled the download on accident)'
+    div.appendChild(button);
+    button.addEventListener("click", function (){
+        saveAs(finalBlob, "PLVMedia-Manual-markdown-out.zip");
+    });
 }
 
 var updateMessage = function(msg){
