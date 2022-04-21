@@ -207,7 +207,7 @@ var processFile = function(file, imgs = null) {
             // Add subsection pages
             mdStore.push({section: headersPageName, content: turndownService.turndown(subsectionLinks) + " "})
             // Edit start to include frontmatter & subsection links
-            markdown = "---\ntitle: The PLV Media Manual\n---\n\n## [🠖 Click to View Subsections 🠔](" + headersPageName + ")\n\n" + markdown;
+            markdown = "---\ntitle: The PLV Media Manual\n---\n\n## [Click to View Subsections](" + headersPageName + ")\n\n" + markdown;
             // Add section
             mdStore.push({section: sectionID, content: markdown})
         };
