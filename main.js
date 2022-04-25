@@ -466,7 +466,7 @@ var writeOutToZip = async function(markdown, imgs = null){
     await writer.add("_config.yml", new zip.TextReader('theme: jekyll-theme-tactile\ntitle: The PLV Media Manual\ndescription: <a href="https://plvmedia.github.io/guide/">Table Of Contents</a>'));
 
     // Add scss
-    await writer.add("/assets/css/style.scss", new zip.TextReader'---\n---\n\n@import "{{ site.theme }}";\n\nh3 {\n  color: #303030!important\n}'};
+    await writer.add("/assets/css/style.scss", new zip.TextReader'---\n---\n\n@import "{{ site.theme }}";\n\nh3 {\n  color: #303030!important\n}');
     
     // Add images
     // Probably a TERRIBLY inefficent way of doing this... oh well, it's good enough for government work.
